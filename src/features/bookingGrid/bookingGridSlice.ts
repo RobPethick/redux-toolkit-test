@@ -1,5 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DateTime } from 'luxon';
+import { mapObjIndexed } from 'ramda';
 import { RootState, AppThunk, ActionTypes } from '../../app/store';
+import { selectDateFilter } from '../filters/filterSlice';
 
 export interface Counsellor {
   id: string,
@@ -41,7 +44,15 @@ export const bookingGridSlice = createSlice({
   },
 });
 
-export const { importAvailabilities, importCounsellors} = bookingGridSlice.actions;
+export const { importAvailabilities, importCounsellors } = bookingGridSlice.actions;
+
+export const selectAvailabilities = (state: RootState) => state.bookingGrid.availabilities;
+export const selectCounsellors = (state: RootState) => state.bookingGrid.counsellors;
+export const selectCurrentAvailabilities = createSelector(selectAvailabilities, selectDateFilter,
+   (availabilities, date) => {
+     const selectedDate = DateTime.fromISO(date);
+    return mapObjIndexed((array) => array.filter((availability) => selectedDate.hasSame(DateTime.fromISO(availability.datetime), 'day')),availabilities);
+})
 
 
 export default bookingGridSlice.reducer;
