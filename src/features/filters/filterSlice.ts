@@ -7,7 +7,7 @@ export interface FilterState {
 }
 
 const initialState: FilterState = {
-  date: DateTime.now().startOf('day').toISODate(),
+  date: '2021-07-25T00:00:00.000Z',
 };
 
 
