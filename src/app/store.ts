@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import bookingGridReducer from '../features/bookingGrid/bookingGridSlice';
 import filterReducer from '../features/filters/filterSlice';
 
 export const store = configureStore({
   reducer: {
     filter: filterReducer,
+    bookingGrid: bookingGridReducer
   },
 });
 
