@@ -1,8 +1,8 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
-import { mapObjIndexed, sortBy, uniq, uniqBy } from 'ramda';
+import { mapObjIndexed, sortBy, uniq, uniqBy, where } from 'ramda';
 import { RootState } from '../../app/store';
-import { selectDateFilter } from '../filters/filterSlice';
+import { selectDateFilter, selectSelectedSpecialisms } from '../filters/filterSlice';
 
 export interface Counsellor {
   id: string,
@@ -58,9 +58,13 @@ export const selectCurrentAvailabilities = createSelector(selectAvailabilities, 
     }, availabilities);
   });
 
-export const selectCounsellorsWithCurrentAvailabilities = createSelector(selectCurrentAvailabilities, selectCounsellors,
-  (currentAvailabilities, counsellors) => {
-    return counsellors.map((c) => ({ ...c, availabilities: currentAvailabilities[c.id] ?? [] })).filter((c) => c.availabilities.length !== 0)
+export const selectFilteredCounsellors = createSelector(selectCurrentAvailabilities, selectCounsellors, selectSelectedSpecialisms,
+  (currentAvailabilities, counsellors, filteredSpecialisms) => {
+    return counsellors.map((c) => ({ ...c, availabilities: currentAvailabilities[c.id] ?? [] }))
+    .filter(where({
+      availabilities: (a: Availability[]) => a.length !== 0,
+      specialisms: (s: string[]) => filteredSpecialisms.length === 0 || filteredSpecialisms.every((fs) => s.includes(fs))
+    }))
   }
 )
 

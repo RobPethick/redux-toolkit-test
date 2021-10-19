@@ -3,7 +3,7 @@ import filterReducer, {
   BookingGrid,
   importAvailabilities,
   selectAvailableSpecialisms,
-  selectCounsellorsWithCurrentAvailabilities,
+  selectFilteredCounsellors,
   selectCurrentAvailabilities,
 } from './bookingGridSlice';
 
@@ -124,7 +124,7 @@ describe('filter reducer', () => {
       }
     };
 
-    const selectedCounsellors = selectCounsellorsWithCurrentAvailabilities(rootState);
+    const selectedCounsellors = selectFilteredCounsellors(rootState);
 
     expect(selectedCounsellors.length).toEqual(1);
     expect(selectedCounsellors[0].id).toBe('availableCounsellorId');
@@ -188,7 +188,7 @@ describe('filter reducer', () => {
       }
     };
 
-    const selectedCounsellors = selectCounsellorsWithCurrentAvailabilities(rootState);
+    const selectedCounsellors = selectFilteredCounsellors(rootState);
 
     expect(selectedCounsellors[0].availabilities[0].id).toBe('firstTimeslotId');
     expect(selectedCounsellors[0].availabilities[1].id).toBe('secondTimeslotId');
@@ -256,7 +256,7 @@ describe('filter reducer', () => {
       }
     };
 
-    const selectedCounsellors = selectCounsellorsWithCurrentAvailabilities(rootState);
+    const selectedCounsellors = selectFilteredCounsellors(rootState);
 
     expect(selectedCounsellors[0].availabilities.length).toBe(1);
   });

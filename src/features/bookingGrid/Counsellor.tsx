@@ -1,11 +1,11 @@
 
-import { selectCounsellorsWithCurrentAvailabilities } from './bookingGridSlice';
+import { selectFilteredCounsellors } from './bookingGridSlice';
 import { Accordion, AccordionSummary, AccordionDetails, Typography, ButtonGroup, Button } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { DateTime } from 'luxon';
 
 export interface CounsellorProps {
-  counsellor: ReturnType<typeof selectCounsellorsWithCurrentAvailabilities>[0]
+  counsellor: ReturnType<typeof selectFilteredCounsellors>[0]
 }
 export function Counsellor({ counsellor }: CounsellorProps) {
   return (

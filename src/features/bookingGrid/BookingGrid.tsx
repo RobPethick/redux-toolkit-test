@@ -1,10 +1,10 @@
 
 import { useAppSelector } from '../../app/hooks';
-import { selectCounsellorsWithCurrentAvailabilities } from './bookingGridSlice';
+import { selectFilteredCounsellors } from './bookingGridSlice';
 import { Counsellor } from './Counsellor';
 
 export function BookingGrid() {
-  const availableCounsellors = useAppSelector(selectCounsellorsWithCurrentAvailabilities);
+  const availableCounsellors = useAppSelector(selectFilteredCounsellors);
   return (
     <div>
       {
