@@ -49,10 +49,17 @@ export const { importAvailabilities, importCounsellors } = bookingGridSlice.acti
 export const selectAvailabilities = (state: RootState) => state.bookingGrid.availabilities;
 export const selectCounsellors = (state: RootState) => state.bookingGrid.counsellors;
 export const selectCurrentAvailabilities = createSelector(selectAvailabilities, selectDateFilter,
-   (availabilities, date) => {
-     const selectedDate = DateTime.fromISO(date);
-    return mapObjIndexed((array) => array.filter((availability) => selectedDate.hasSame(DateTime.fromISO(availability.datetime), 'day')),availabilities);
-})
+  (availabilities, date) => {
+    const selectedDate = DateTime.fromISO(date);
+    return mapObjIndexed((array) => array.filter((availability) => selectedDate.hasSame(DateTime.fromISO(availability.datetime), 'day')), availabilities);
+  });
+
+export const selectCounsellorsWithCurrentAvailabilities = createSelector(selectCurrentAvailabilities, selectCounsellors,
+  (currentAvailabilities, counsellors) => {
+    return counsellors.map((c) => ({ ...c, availabilities: currentAvailabilities[c.id] ?? [] })).filter((c) => c.availabilities.length !== 0)
+  }
+)
+
 
 
 export default bookingGridSlice.reducer;
