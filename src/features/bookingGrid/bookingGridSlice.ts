@@ -2,7 +2,7 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
 import { mapObjIndexed, sortBy, uniq, uniqBy, where } from 'ramda';
 import { RootState } from '../../app/store';
-import { selectDateFilter, selectSelectedSpecialisms } from '../filters/filterSlice';
+import { selectDateFilter, selectSelectedAppointmentMediums, selectSelectedAppointmentTypes, selectSelectedSpecialisms } from '../filters/filterSlice';
 
 export interface Counsellor {
   id: string,
@@ -58,17 +58,27 @@ export const selectCurrentAvailabilities = createSelector(selectAvailabilities, 
     }, availabilities);
   });
 
-export const selectFilteredCounsellors = createSelector(selectCurrentAvailabilities, selectCounsellors, selectSelectedSpecialisms,
-  (currentAvailabilities, counsellors, filteredSpecialisms) => {
+export const selectFilteredCounsellors = createSelector(
+  selectCurrentAvailabilities,
+  selectCounsellors,
+  selectSelectedSpecialisms,
+  selectSelectedAppointmentTypes,
+  selectSelectedAppointmentMediums,
+  (currentAvailabilities, counsellors, filteredSpecialisms, filteredAppointmentTypes, fitleredAppointmentMediums) => {
     return counsellors.map((c) => ({ ...c, availabilities: currentAvailabilities[c.id] ?? [] }))
     .filter(where({
       availabilities: (a: Availability[]) => a.length !== 0,
-      specialisms: (s: string[]) => filteredSpecialisms.length === 0 || filteredSpecialisms.every((fs) => s.includes(fs))
+      specialisms: (s: string[]) => filteredSpecialisms.length === 0 || filteredSpecialisms.every((fs) => s.includes(fs)),
+      appointment_types: (s: string[]) => filteredAppointmentTypes.length === 0 || filteredAppointmentTypes.every((fs) => s.includes(fs)),
+      appointment_mediums: (s: string[]) => fitleredAppointmentMediums.length === 0 || fitleredAppointmentMediums.every((fs) => s.includes(fs))
     }))
   }
 )
 
-export const selectAvailableSpecialisms = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.specialisms)))
+export const selectAvailableSpecialisms = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.specialisms)));
+export const selectAvailableAppointmentTypes = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.appointment_types)));
+export const selectAvailableAppointmentMediums = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.appointment_mediums)));
+
 
 
 export default bookingGridSlice.reducer;

@@ -20,9 +20,6 @@ export function SpecialismSelector() {
         multiple
         label="Specialisms"
       >
-        <MenuItem value={undefined}>
-          <em>No filter</em>
-        </MenuItem>
         {
           availableSpecialisms.map((specialism) => <MenuItem value={specialism}>{specialism}</MenuItem>)
         }

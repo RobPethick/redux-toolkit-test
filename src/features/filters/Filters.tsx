@@ -6,6 +6,8 @@ import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import { FormControl, TextField } from '@mui/material';
 import TimePicker from '@mui/lab/TimePicker';
 import { SpecialismSelector } from './SpecialismSelector';
+import { AppointmentTypeSelector } from './AppointmentTypeSelector';
+import { AppointmentMediumSelector } from './AppointmentMediumSelector';
 
 export function Filters() {
   const dispatch = useAppDispatch();
@@ -21,16 +23,9 @@ export function Filters() {
           renderInput={(params) => <TextField {...params} />}
         />
       </FormControl>
-      <FormControl sx={{ m: 1}}>
-        <TimePicker
-          label="Time"
-          value={dateValue}
-          onChange={(event) => dispatch(setDateFilter(event))}
-          renderInput={(params) => <TextField {...params} />}
-          minutesStep={60}
-        />
-      </FormControl>
       <SpecialismSelector />
+      <AppointmentTypeSelector />
+      <AppointmentMediumSelector />
     </div>
   );
 }
