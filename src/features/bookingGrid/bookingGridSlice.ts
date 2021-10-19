@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
-import { mapObjIndexed } from 'ramda';
-import { RootState, AppThunk, ActionTypes } from '../../app/store';
+import { mapObjIndexed, sortBy, uniq, uniqBy } from 'ramda';
+import { RootState } from '../../app/store';
 import { selectDateFilter } from '../filters/filterSlice';
 
 export interface Counsellor {
@@ -51,7 +51,11 @@ export const selectCounsellors = (state: RootState) => state.bookingGrid.counsel
 export const selectCurrentAvailabilities = createSelector(selectAvailabilities, selectDateFilter,
   (availabilities, date) => {
     const selectedDate = DateTime.fromISO(date);
-    return mapObjIndexed((array) => array.filter((availability) => selectedDate.hasSame(DateTime.fromISO(availability.datetime), 'day')), availabilities);
+    return mapObjIndexed((array) => {
+       const filteredAvailabilities = array.filter((availability) => selectedDate.hasSame(DateTime.fromISO(availability.datetime), 'day'))
+       const sortedAvailabilities = sortBy((a) => a.datetime, filteredAvailabilities);
+       return uniqBy((a) => a.datetime, sortedAvailabilities);
+    }, availabilities);
   });
 
 export const selectCounsellorsWithCurrentAvailabilities = createSelector(selectCurrentAvailabilities, selectCounsellors,
@@ -60,6 +64,7 @@ export const selectCounsellorsWithCurrentAvailabilities = createSelector(selectC
   }
 )
 
+export const selectAvailableSpecialisms = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.specialisms)))
 
 
 export default bookingGridSlice.reducer;

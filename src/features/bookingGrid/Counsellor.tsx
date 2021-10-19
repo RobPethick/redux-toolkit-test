@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { selectCounsellorsWithCurrentAvailabilities } from './bookingGridSlice';
-import styles from './BookingGrid.module.css';
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
-import { Accordion, AccordionSummary, AccordionDetails, TextField, Typography, ButtonGroup, Button } from '@mui/material';
+import { Accordion, AccordionSummary, AccordionDetails, Typography, ButtonGroup, Button } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { DateTime } from 'luxon';
 
@@ -30,7 +26,7 @@ export function Counsellor({ counsellor }: CounsellorProps) {
           Specialisms: {counsellor.specialisms.join(', ')}
         </Typography>
         <ButtonGroup>
-          {counsellor.availabilities.map((availability) => <Button >{DateTime.fromISO(availability.datetime).toFormat('hh:mm')}</Button>)}
+          {counsellor.availabilities.map((availability) => <Button >{DateTime.fromISO(availability.datetime).toFormat('HH:mm')}</Button>)}
         </ButtonGroup>
       </AccordionDetails>
     </Accordion>
