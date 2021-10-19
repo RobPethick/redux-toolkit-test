@@ -4,7 +4,6 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { selectDateFilter, setDateFilter } from './filterSlice';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import { FormControl, TextField } from '@mui/material';
-import TimePicker from '@mui/lab/TimePicker';
 import { SpecialismSelector } from './SpecialismSelector';
 import { AppointmentTypeSelector } from './AppointmentTypeSelector';
 import { AppointmentMediumSelector } from './AppointmentMediumSelector';

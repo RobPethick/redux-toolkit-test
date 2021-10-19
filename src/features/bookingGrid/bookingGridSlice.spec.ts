@@ -32,7 +32,12 @@ describe('filter reducer', () => {
   it('should correctly select current availabilities', () => {
     const selectedDate = '2021-10-20T00:00:00.000Z'
     const rootState: RootState = {
-      filter: { date: selectedDate, specialisms: [] },
+      filter: {
+        date: selectedDate,
+        specialisms: [],
+        appointment_mediums: [],
+        appointment_types: [],
+      },
       bookingGrid: {
         availabilities: {
 
@@ -69,7 +74,12 @@ describe('filter reducer', () => {
   it('should correctly return available counsellors', () => {
     const selectedDate = '2021-10-20T00:00:00.000Z'
     const rootState: RootState = {
-      filter: { date: selectedDate, specialisms: [] },
+      filter: {
+        date: selectedDate,
+        specialisms: [],
+        appointment_mediums: [],
+        appointment_types: [],
+      },
       bookingGrid: {
         availabilities: {
 
@@ -133,7 +143,12 @@ describe('filter reducer', () => {
   it('should sort availabilities', () => {
     const selectedDate = '2021-10-20T00:00:00.000Z'
     const rootState: RootState = {
-      filter: { date: selectedDate, specialisms: [] },
+      filter: {
+        date: selectedDate,
+        specialisms: [],
+        appointment_mediums: [],
+        appointment_types: [],
+      },
       bookingGrid: {
         availabilities: {
 
@@ -197,7 +212,12 @@ describe('filter reducer', () => {
   it('should remove duplicate availabilities', () => {
     const selectedDate = '2021-10-20T00:00:00.000Z'
     const rootState: RootState = {
-      filter: { date: selectedDate, specialisms: [] },
+      filter: {
+        date: selectedDate,
+        specialisms: [],
+        appointment_mediums: [],
+        appointment_types: [],
+      },
       bookingGrid: {
         availabilities: {
 
@@ -289,7 +309,9 @@ describe('filter reducer', () => {
       },
       filter: {
         date: '2020-10-20T10:00:00',
-        specialisms: []
+        specialisms: [],
+        appointment_mediums: [],
+        appointment_types: [],
       }
     }
 
@@ -327,6 +349,8 @@ describe('filter reducer', () => {
       filter: {
         date: '2020-10-20T10:00:00',
         specialisms: [],
+        appointment_mediums: [],
+        appointment_types: [],
       }
     }
 
