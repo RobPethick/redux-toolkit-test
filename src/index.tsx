@@ -5,12 +5,16 @@ import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import DateAdapter from '@mui/lab/AdapterLuxon';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <LocalizationProvider dateAdapter={DateAdapter}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </LocalizationProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
