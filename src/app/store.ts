@@ -15,3 +15,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export enum ActionTypes {
+  IMPORT_AVAILABILITY = 'IMPORT_AVAILABILITY',
+  IMPORT_COUNSELLOR = 'IMPORT_COUNSELLOR',
+}

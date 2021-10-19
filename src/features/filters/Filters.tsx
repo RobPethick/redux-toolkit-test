@@ -2,12 +2,6 @@ import React, { useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
-  selectCount,
 } from './filterSlice';
 import styles from './Filter.module.css';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
