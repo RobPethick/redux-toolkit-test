@@ -32,9 +32,7 @@ const initialState: BookingGrid = {
 export const bookingGridSlice = createSlice({
   name: 'filter',
   initialState,
-  // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    // Use the PayloadAction type to declare the contents of `action.payload`
     importAvailabilities: (state, action: PayloadAction<BookingGrid['availabilities']>) => {
       state.availabilities = action.payload;
     },
