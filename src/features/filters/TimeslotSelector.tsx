@@ -11,7 +11,7 @@ export function TimeslotSelector() {
 
   const dispatch = useAppDispatch()
   return (
-    <FormControl sx={{ m: 1, width: 140 }}>
+    <FormControl sx={{ m: 1, width: 200 }}>
       <InputLabel>Available Timeslots</InputLabel>
       <Select
         value={selectedTimeslot}
