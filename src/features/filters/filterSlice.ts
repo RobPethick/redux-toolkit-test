@@ -3,6 +3,7 @@ import { RootState } from '../../app/store';
 
 export interface FilterState {
   date: string;
+  time: string | undefined;
   specialisms: string[];
   appointment_mediums: string[];
   appointment_types: string[];
@@ -10,6 +11,7 @@ export interface FilterState {
 
 const initialState: FilterState = {
   date: '2021-07-25T00:00:00.000Z',
+  time: undefined,
   specialisms: [],
   appointment_mediums: [],
   appointment_types: [],
@@ -34,15 +36,19 @@ export const filterSlice = createSlice({
     setAppointmentMediumsFilter: (state, action: PayloadAction<string[]>) => {
       state.appointment_mediums = action.payload;
     },
+    setTimeslotFilter: (state, action: PayloadAction<string | undefined>) => {
+      state.time = action.payload;
+    },
   },
 });
 
-export const { setDateFilter, setSpecialismsFilter, setAppointmentTypesFilter, setAppointmentMediumsFilter } = filterSlice.actions;
+export const { setDateFilter, setSpecialismsFilter, setAppointmentTypesFilter, setAppointmentMediumsFilter, setTimeslotFilter } = filterSlice.actions;
 
 export const selectDateFilter = (state: RootState) => state.filter.date;
 export const selectSelectedSpecialisms = (state: RootState) => state.filter.specialisms;
 export const selectSelectedAppointmentTypes = (state: RootState) => state.filter.appointment_types;
 export const selectSelectedAppointmentMediums = (state: RootState) => state.filter.appointment_mediums;
+export const selectSelectedTimeslot = (state: RootState) => state.filter.time;
 
 
 export default filterSlice.reducer;

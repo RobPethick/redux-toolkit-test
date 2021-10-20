@@ -37,6 +37,7 @@ describe('filter reducer', () => {
         specialisms: [],
         appointment_mediums: [],
         appointment_types: [],
+        time: undefined,
       },
       bookingGrid: {
         availabilities: {
@@ -79,6 +80,7 @@ describe('filter reducer', () => {
         specialisms: [],
         appointment_mediums: [],
         appointment_types: [],
+        time: undefined,
       },
       bookingGrid: {
         availabilities: {
@@ -148,6 +150,7 @@ describe('filter reducer', () => {
         specialisms: [],
         appointment_mediums: [],
         appointment_types: [],
+        time: undefined,
       },
       bookingGrid: {
         availabilities: {
@@ -217,6 +220,7 @@ describe('filter reducer', () => {
         specialisms: [],
         appointment_mediums: [],
         appointment_types: [],
+        time: undefined,
       },
       bookingGrid: {
         availabilities: {
@@ -312,6 +316,7 @@ describe('filter reducer', () => {
         specialisms: [],
         appointment_mediums: [],
         appointment_types: [],
+        time: undefined,
       }
     }
 
@@ -351,6 +356,7 @@ describe('filter reducer', () => {
         specialisms: [],
         appointment_mediums: [],
         appointment_types: [],
+        time: undefined,
       }
     }
 

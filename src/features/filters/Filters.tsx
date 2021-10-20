@@ -7,6 +7,7 @@ import { FormControl, TextField } from '@mui/material';
 import { SpecialismSelector } from './SpecialismSelector';
 import { AppointmentTypeSelector } from './AppointmentTypeSelector';
 import { AppointmentMediumSelector } from './AppointmentMediumSelector';
+import { TimeslotSelector } from './TimeslotSelector';
 
 export function Filters() {
   const dispatch = useAppDispatch();
@@ -23,6 +24,7 @@ export function Filters() {
         />
       </FormControl>
       <SpecialismSelector />
+      <TimeslotSelector />
       <AppointmentTypeSelector />
       <AppointmentMediumSelector />
     </div>

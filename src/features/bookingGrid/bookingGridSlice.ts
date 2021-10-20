@@ -2,7 +2,7 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
 import { mapObjIndexed, sortBy, uniq, uniqBy, where } from 'ramda';
 import { RootState } from '../../app/store';
-import { selectDateFilter, selectSelectedAppointmentMediums, selectSelectedAppointmentTypes, selectSelectedSpecialisms } from '../filters/filterSlice';
+import { selectDateFilter, selectSelectedAppointmentMediums, selectSelectedAppointmentTypes, selectSelectedSpecialisms, selectSelectedTimeslot } from '../filters/filterSlice';
 
 export interface Counsellor {
   id: string,
@@ -62,10 +62,11 @@ export const selectFilteredCounsellors = createSelector(
   selectSelectedSpecialisms,
   selectSelectedAppointmentTypes,
   selectSelectedAppointmentMediums,
-  (currentAvailabilities, counsellors, filteredSpecialisms, filteredAppointmentTypes, fitleredAppointmentMediums) => {
+  selectSelectedTimeslot,
+  (currentAvailabilities, counsellors, filteredSpecialisms, filteredAppointmentTypes, fitleredAppointmentMediums, filteredTimeslot) => {
     return counsellors.map((c) => ({ ...c, availabilities: currentAvailabilities[c.id] ?? [] }))
     .filter(where({
-      availabilities: (a: Availability[]) => a.length !== 0,
+      availabilities: (a: Availability[]) => a.length !== 0 && (filteredTimeslot === undefined || a.some((a) =>  DateTime.fromISO(a.datetime).toFormat('HH:mm') === filteredTimeslot)),
       specialisms: (s: string[]) => filteredSpecialisms.length === 0 || filteredSpecialisms.every((fs) => s.includes(fs)),
       appointment_types: (s: string[]) => filteredAppointmentTypes.length === 0 || filteredAppointmentTypes.every((fs) => s.includes(fs)),
       appointment_mediums: (s: string[]) => fitleredAppointmentMediums.length === 0 || fitleredAppointmentMediums.every((fs) => s.includes(fs))
@@ -76,6 +77,7 @@ export const selectFilteredCounsellors = createSelector(
 export const selectAvailableSpecialisms = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.specialisms)));
 export const selectAvailableAppointmentTypes = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.appointment_types)));
 export const selectAvailableAppointmentMediums = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.appointment_mediums)));
+export const selectAvailableTimeslots = createSelector(selectCurrentAvailabilities, (availabilities) => sortBy((a) => a, uniq(Object.values(availabilities).flat().map((a) =>  DateTime.fromISO(a.datetime).toFormat('HH:mm'))))); //counsellors.flatMap((c) => c.availabilities.map((a) =>))));
 
 
 
