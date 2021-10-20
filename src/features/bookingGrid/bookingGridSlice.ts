@@ -50,9 +50,9 @@ export const selectCurrentAvailabilities = createSelector(selectAvailabilities, 
   (availabilities, date) => {
     const selectedDate = DateTime.fromISO(date);
     return mapObjIndexed((array) => {
-       const filteredAvailabilities = array.filter((availability) => selectedDate.hasSame(DateTime.fromISO(availability.datetime), 'day'))
-       const sortedAvailabilities = sortBy((a) => a.datetime, filteredAvailabilities);
-       return uniqBy((a) => a.datetime, sortedAvailabilities);
+      const filteredAvailabilities = array.filter((availability) => selectedDate.hasSame(DateTime.fromISO(availability.datetime), 'day'))
+      const sortedAvailabilities = sortBy((a) => a.datetime, filteredAvailabilities);
+      return uniqBy((a) => a.datetime, sortedAvailabilities);
     }, availabilities);
   });
 
@@ -63,21 +63,21 @@ export const selectFilteredCounsellors = createSelector(
   selectSelectedAppointmentTypes,
   selectSelectedAppointmentMediums,
   selectSelectedTimeslot,
-  (currentAvailabilities, counsellors, filteredSpecialisms, filteredAppointmentTypes, fitleredAppointmentMediums, filteredTimeslot) => {
+  (currentAvailabilities, counsellors, filteredSpecialisms, filteredAppointmentType, fitleredAppointmentMediums, filteredTimeslot) => {
     return counsellors.map((c) => ({ ...c, availabilities: currentAvailabilities[c.id] ?? [] }))
-    .filter(where({
-      availabilities: (a: Availability[]) => a.length !== 0 && (filteredTimeslot === undefined || a.some((a) =>  DateTime.fromISO(a.datetime).toFormat('HH:mm') === filteredTimeslot)),
-      specialisms: (s: string[]) => filteredSpecialisms.length === 0 || filteredSpecialisms.every((fs) => s.includes(fs)),
-      appointment_types: (s: string[]) => filteredAppointmentTypes.length === 0 || filteredAppointmentTypes.every((fs) => s.includes(fs)),
-      appointment_mediums: (s: string[]) => fitleredAppointmentMediums.length === 0 || fitleredAppointmentMediums.every((fs) => s.includes(fs))
-    }))
+      .filter(where({
+        availabilities: (a: Availability[]) => a.length !== 0 && (filteredTimeslot === undefined || a.some((a) => DateTime.fromISO(a.datetime).toFormat('HH:mm') === filteredTimeslot)),
+        specialisms: (s: string[]) => filteredSpecialisms.length === 0 || filteredSpecialisms.every((fs) => s.includes(fs)),
+        appointment_types: (s: string[]) => s.includes(filteredAppointmentType),
+        appointment_mediums: (s: string[]) => fitleredAppointmentMediums.length === 0 || fitleredAppointmentMediums.every((fs) => s.includes(fs))
+      }))
   }
 )
 
 export const selectAvailableSpecialisms = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.specialisms)));
 export const selectAvailableAppointmentTypes = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.appointment_types)));
 export const selectAvailableAppointmentMediums = createSelector(selectCounsellors, (counsellors) => uniq(counsellors.flatMap((c) => c.appointment_mediums)));
-export const selectAvailableTimeslots = createSelector(selectCurrentAvailabilities, (availabilities) => sortBy((a) => a, uniq(Object.values(availabilities).flat().map((a) =>  DateTime.fromISO(a.datetime).toFormat('HH:mm'))))); //counsellors.flatMap((c) => c.availabilities.map((a) =>))));
+export const selectAvailableTimeslots = createSelector(selectCurrentAvailabilities, (availabilities) => sortBy((a) => a, uniq(Object.values(availabilities).flat().map((a) => DateTime.fromISO(a.datetime).toFormat('HH:mm'))))); //counsellors.flatMap((c) => c.availabilities.map((a) =>))));
 
 
 

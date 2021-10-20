@@ -36,7 +36,7 @@ describe('filter reducer', () => {
         date: selectedDate,
         specialisms: [],
         appointment_mediums: [],
-        appointment_types: [],
+        appointment_type: 'one_off',
         time: undefined,
       },
       bookingGrid: {
@@ -79,7 +79,7 @@ describe('filter reducer', () => {
         date: selectedDate,
         specialisms: [],
         appointment_mediums: [],
-        appointment_types: [],
+        appointment_type: 'one_off',
         time: undefined,
       },
       bookingGrid: {
@@ -149,7 +149,7 @@ describe('filter reducer', () => {
         date: selectedDate,
         specialisms: [],
         appointment_mediums: [],
-        appointment_types: [],
+        appointment_type: 'one_off',
         time: undefined,
       },
       bookingGrid: {
@@ -219,7 +219,7 @@ describe('filter reducer', () => {
         date: selectedDate,
         specialisms: [],
         appointment_mediums: [],
-        appointment_types: [],
+        appointment_type: 'one_off',
         time: undefined,
       },
       bookingGrid: {
@@ -315,7 +315,7 @@ describe('filter reducer', () => {
         date: '2020-10-20T10:00:00',
         specialisms: [],
         appointment_mediums: [],
-        appointment_types: [],
+        appointment_type: 'one_off',
         time: undefined,
       }
     }
@@ -355,7 +355,7 @@ describe('filter reducer', () => {
         date: '2020-10-20T10:00:00',
         specialisms: [],
         appointment_mediums: [],
-        appointment_types: [],
+        appointment_type: 'one_off',
         time: undefined,
       }
     }

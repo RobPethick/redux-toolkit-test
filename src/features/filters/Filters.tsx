@@ -5,7 +5,6 @@ import { selectDateFilter, setDateFilter } from './filterSlice';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import { FormControl, TextField } from '@mui/material';
 import { SpecialismSelector } from './SpecialismSelector';
-import { AppointmentTypeSelector } from './AppointmentTypeSelector';
 import { AppointmentMediumSelector } from './AppointmentMediumSelector';
 import { TimeslotSelector } from './TimeslotSelector';
 
@@ -25,7 +24,6 @@ export function Filters() {
       </FormControl>
       <SpecialismSelector />
       <TimeslotSelector />
-      <AppointmentTypeSelector />
       <AppointmentMediumSelector />
     </div>
   );
